@@ -1,0 +1,15 @@
+# Ignore artifacts:
+build
+coverage
+
+# Ignore all HTML files:
+*.html
+
+# Ignore all vue files:
+*.vue
+
+# Ignore all js files:
+*.js
+
+# Ignore all css files:
+*.css
