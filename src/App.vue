@@ -8,6 +8,7 @@
     <v-app-bar-nav-icon @click="drawer = !drawer"/>
     <site-title :title="title"/>
     <v-spacer/>
+
     <v-btn icon to="/about">
       <v-icon>mdi-magnify</v-icon>
     </v-btn>
@@ -38,6 +39,10 @@ export default {
       title: 'This is the title',
       footer: 'This is the footer'
     }
+  },
+  mounted () {
+    console.log(this.$firebase)
   }
 }
+
 </script>
