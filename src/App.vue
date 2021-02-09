@@ -5,56 +5,39 @@
       color="primary"
       dark
     >
-      <div class="d-flex align-center">
-        <v-img
-          alt="Vuetify Logo"
-          class="shrink mr-2"
-          contain
-          src="https://cdn.vuetifyjs.com/images/logos/vuetify-logo-dark.png"
-          transition="scale-transition"
-          width="40"
-        />
-
-        <v-img
-          alt="Vuetify Name"
-          class="shrink mt-1 hidden-sm-and-down"
-          contain
-          min-width="100"
-          src="https://cdn.vuetifyjs.com/images/logos/vuetify-name-dark.png"
-          width="100"
-        />
-      </div>
-
-      <v-spacer></v-spacer>
-
-      <v-btn
-        href="https://github.com/vuetifyjs/vuetify/releases/latest"
-        target="_blank"
-        text
-      >
-        <span class="mr-2">Latest Release</span>
-        <v-icon>mdi-open-in-new</v-icon>
-      </v-btn>
+    <v-app-bar-nav-icon @click="drawer = !drawer"/>
+    <site-title :title="title"/>
+    <v-spacer/>
+    <v-btn icon to="/about">
+      <v-icon>mdi-magnify</v-icon>
+    </v-btn>
+    <v-btn icon to="/">
+      <v-icon>mdi-magnify</v-icon>
+    </v-btn>
     </v-app-bar>
-
-    <v-main>
-      <HelloWorld/>
-    </v-main>
+    <site-menu :drawer="drawer"/>
+    <v-content>
+      <router-view/>
+    </v-content>
+    <site-footer :footer="footer"/>
   </v-app>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld'
+import SiteTitle from '@/views/site/title'
+import SiteFooter from '@/views/site/footer'
+import SiteMenu from '@/views/site/menu'
 
 export default {
+  components: { SiteTitle, SiteFooter, SiteMenu },
   name: 'App',
-
-  components: {
-    HelloWorld
-  },
-
-  data: () => ({
-    //
-  })
+  data () {
+    return {
+      drawer: false,
+      items: [],
+      title: 'This is the title',
+      footer: 'This is the footer'
+    }
+  }
 }
 </script>
