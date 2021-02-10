@@ -1,6 +1,5 @@
 <template>
 <div>
-  <v-navigation-drawer app v-model="drawer">
       <v-list-item>
         <v-list-item-title class="title">
           Application
@@ -35,7 +34,6 @@
         </v-list-item>
       </v-list-group>
     </v-list>
-    </v-navigation-drawer>
 </div>
 </template>
 
