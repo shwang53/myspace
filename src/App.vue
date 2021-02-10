@@ -4,8 +4,7 @@
       <v-app-bar-nav-icon @click="drawer = !drawer" />
       <site-title :title="site.title"></site-title>
       <v-spacer/>
-      <!-- testing adding menu -->
-      <v-btn icon @click="save"><v-icon>mdi-numeric</v-icon></v-btn>
+      <site-sign/>
     </v-app-bar>
     <v-navigation-drawer app v-model="drawer" width="400">
       <site-menu :items="site.menu"></site-menu>
@@ -21,9 +20,10 @@
 import SiteTitle from '@/views/site/title'
 import SiteFooter from '@/views/site/footer'
 import SiteMenu from '@/views/site/menu'
+import SiteSign from '@/views/site/sign'
 
 export default {
-  components: { SiteTitle, SiteFooter, SiteMenu },
+  components: { SiteTitle, SiteFooter, SiteMenu, SiteSign },
   name: 'App',
   data () {
     return {
@@ -75,39 +75,6 @@ export default {
         this.site = v
       }, (e) => {
         console.log(e.message)
-      })
-    },
-    save () {
-      console.log('save@@')
-      this.$firebase.database().ref().child('site').set({
-        menu:
-         [
-           {
-             title: 'home',
-             icon: 'mdi-home',
-             subItems: [
-               {
-                 title: 'Dashboard',
-                 to: '/'
-               },
-               {
-                 title: 'About',
-                 to: '/about'
-               }
-             ]
-           },
-           {
-             title: 'about',
-             active: true,
-             icon: 'mdi-account',
-             subItems: [
-               {
-                 title: 'xxx',
-                 to: '/xxx'
-               }
-             ]
-           }
-         ]
       })
     }
   }
