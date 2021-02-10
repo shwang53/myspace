@@ -1,24 +1,19 @@
 <template>
   <v-app>
-    <v-app-bar
-      app
-      color="primary"
-      dark
-    >
-    <v-app-bar-nav-icon @click="drawer = !drawer"/>
-    <site-title :title="site.title"/>
-    <v-spacer/>
-    <v-btn icon @click="save"><v-icon>mdi-check</v-icon></v-btn>
-    <v-btn icon @click="read"><v-icon>mdi-numeric</v-icon></v-btn>
-    <v-btn icon @click="readOnce"><v-icon>mdi-numeric</v-icon></v-btn>
+    <v-app-bar app color="primary" dark>
+      <v-app-bar-nav-icon @click="drawer = !drawer" />
+      <site-title :title="site.title"></site-title>
+      <v-spacer/>
+      <!-- testing adding menu -->
+      <v-btn icon @click="save"><v-icon>mdi-numeric</v-icon></v-btn>
     </v-app-bar>
-    <v-navigation-drawer app v-model="drawer">
-      <site-menu :items="site.menu"/>
+    <v-navigation-drawer app v-model="drawer" width="400">
+      <site-menu :items="site.menu"></site-menu>
     </v-navigation-drawer>
     <v-content>
       <router-view/>
     </v-content>
-    <site-footer :footer="site.footer"/>
+    <site-footer :footer="site.footer"></site-footer>
   </v-app>
 </template>
 
@@ -56,13 +51,13 @@ export default {
             subItems: [
               {
                 title: 'xxx',
-                to: '/about'
+                to: '/xxx'
               }
             ]
           }
         ],
-        title: 'This is the title',
-        footer: 'This is the footer'
+        title: '나의 타이틀입니다',
+        footer: '푸터입니다'
       }
     }
   },
@@ -84,22 +79,37 @@ export default {
     },
     save () {
       console.log('save@@')
-      this.$firebase.database().ref().child('abcd').set({
-        title: 'abcd',
-        text: 'ttt'
+      this.$firebase.database().ref().child('site').set({
+        menu:
+         [
+           {
+             title: 'home',
+             icon: 'mdi-home',
+             subItems: [
+               {
+                 title: 'Dashboard',
+                 to: '/'
+               },
+               {
+                 title: 'About',
+                 to: '/about'
+               }
+             ]
+           },
+           {
+             title: 'about',
+             active: true,
+             icon: 'mdi-account',
+             subItems: [
+               {
+                 title: 'xxx',
+                 to: '/xxx'
+               }
+             ]
+           }
+         ]
       })
-    },
-    read () {
-      this.$firebase.database().ref().child('abcd').on('value', (sn) => {
-        console.log(sn)
-        console.log(sn.val())
-      })
-    },
-    async readOnce () {
-      const sn = await this.$firebase.database().ref().child('abcd').once('value')
-      console.log(sn.val())
     }
   }
 }
-
 </script>

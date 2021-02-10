@@ -12,7 +12,7 @@
                 </v-card-title>
 
                 <v-card-text>
-                    <v-text-field v-model="text" outlined label="title" @keypress.enter="save"/>
+                    <v-text-field v-model="text" outlined labAel="title" @keypress.enter="save"/>
                 </v-card-text>
             </v-card>
         </v-dialog>
@@ -36,8 +36,6 @@ export default {
     async save () {
       try {
         await this.$firebase.database().ref().child('site').update({ title: this.text })
-      } catch (e) {
-        console.log(e.message)
       } finally {
         this.dialog = false
       }
