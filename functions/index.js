@@ -10,6 +10,7 @@ admin.initializeApp({
 })
 
 const db = admin.database()
+const fdb = admin.firestore()
 
 exports.createUser = functions.auth.user().onCreate(async (user) => {
   const { uid, email, displayName, photoURL } = user
@@ -28,10 +29,14 @@ exports.deleteUser = functions.auth.user().onDelete(async (user) => {
   db.ref('users').child(uid).remove()
 })
 
-// // Create and Deploy Your First Cloud Functions
-// // https://firebase.google.com/docs/functions/write-firebase-functions
-//
-// exports.helloWorld = functions.https.onRequest((request, response) => {
-//   functions.logger.info("Hello logs!", {structuredData: true});
-//   response.send("Hello from Firebase!");
-// });
+exports.incrementBoardCount = functions.firestore.document('boards/{bid}').onCreate(async (snap, context) => {
+  try {
+    await fdb.collection('meta').doc('boards').update('count', admin.firestore.FieldValue.increment(1))
+  } catch (e) {
+    await fdb.collection('meta').doc('boards').set({ count: 1 })
+  }
+})
+
+exports.decrementBoardCount = functions.firestore.document('boards/{bid}').onDelete(async (snap, context) => {
+  await fdb.collection('meta').doc('boards').update('count', admin.firestore.FieldValue.increment(-1))
+})
