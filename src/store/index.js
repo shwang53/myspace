@@ -9,8 +9,8 @@ export default new Vuex.Store({
     fireUser: null
   },
   mutations: {
-    setEdit (state, edit) {
-      state.editable = edit
+    setEdit (state, value) {
+      state.editable = value
     },
     setFireUser (state, fu) {
       state.fireUser = fu

@@ -4,7 +4,7 @@
     <v-data-table
       :headers="headers"
       :items="items"
-      :items-per-page="5"
+      :items-per-page="10"
       :options.sync="options"
       :server-items-length="serverItemsLength"
       must-sort
